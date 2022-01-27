@@ -1,0 +1,35 @@
+{% extends "blog/base.html" %}
+{% block content %}
+    {% for post in post_list %} 
+        <article class="card mb-3">
+           <div class="card-header">
+                <a class="mr-4 text-decoration-none" href="#">{{ post.author }}</a>
+                <small class="text-muted">{{ post.date_posted | date:"F d, Y" }}</small>
+           </div>
+            <div class="card-body">
+                <h5 class="card-title "><a class="text-decoration-none" href="{% url 'detailedpost' post.id %}">{{ post.title }}</a></h5>
+                <p class="card-text">{{ post.content }}</p>
+            </div>
+        </article>
+    {% endfor %}
+    {% if is_paginated %}
+        <div class=" text-center">
+            
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-outline-info mb-4">&#60;&#60;</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-outline-info mb-4">&#60;</a>
+            {% else %}
+                <a href="#" class="btn btn-outline-secondary disabled mb-4">&#60;&#60;</a>
+                <a href="#" class="btn btn-outline-secondary mb-4">&#60;</a>
+            {% endif %}
+            <button class="btn btn-info mb-4">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</button>
+            {% if page_obj.has_next %}
+                <a href="?page={{page_obj.next_page_number}}" class="btn btn-outline-info mb-4">&#62;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-outline-info mb-4">&#62;&#62;</a>
+            {% else %}
+                <a href="#" class="btn btn-outline-secondary disabled mb-4">&#62;</a>
+                <a href="#" class="btn btn-outline-secondary disabled mb-4">&#62;&#62;</a>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock content %}

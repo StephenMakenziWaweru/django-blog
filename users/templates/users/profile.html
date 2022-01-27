@@ -1,0 +1,10 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %} 
+    <div class="border p-3 pb-0">
+        <h3 >{{ user.username }} Profile</h3>
+        <div class="border-top mb-1"></div>
+        <p>{{ user.username }}</p>
+        <p>{{ user.email }}</p>
+    </div>
+{% endblock content %}
